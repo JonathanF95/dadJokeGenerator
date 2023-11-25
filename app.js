@@ -3,25 +3,47 @@ const jokeBtn = document.getElementById('jokeBtn');
 
 jokeBtn.addEventListener('click', generateJoke);
 
-generateJoke()
+generateJoke();
 
-//Using async/await
+
+//Using Axios
 async function generateJoke() {
     const config = {
         headers: {
             Accept: "application/json"
         },
+    };
+
+    try {
+        const response = await axios.get('https://icanhazdadjoke.com', config);
+        jokeEl.innerHTML = response.data.joke;
+    } catch (error) {
+        console.error('Error fetching joke:', error.message);
     }
-
-    const res = await fetch('https://icanhazdadjoke.com', config)
-
-    const data = await res.json();
-
-    jokeEl.innerHTML = data.joke
-
 }
 
-//Using .then()
+
+//Using async/await
+
+
+// async function generateJoke() {
+//     const config = {
+//         headers: {
+//             Accept: "application/json"
+//         },
+//     }
+
+//     const res = await fetch('https://icanhazdadjoke.com', config)
+
+//     const data = await res.json();
+
+//     jokeEl.innerHTML = data.joke
+
+// }
+
+//Using fetch .then()
+
+
 // function generateJoke() {
 //     const config = {
 //         headers: {
